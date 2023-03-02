@@ -14,6 +14,11 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    // https://mvnrepository.com/artifact/io.github.microutils/kotlin-logging-jvm
+    implementation("io.github.microutils:kotlin-logging:2.1.23")
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    implementation("org.slf4j:slf4j-simple:1.7.36")
+
 }
 
 tasks.test {
