@@ -2,6 +2,7 @@ package controllers
 
 import models.Note
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -22,8 +23,8 @@ class NoteAPITest {
     fun setup(){
         learnKotlin = Note("Learning Kotlin", 5, "College", false)
         summerHoliday = Note("Summer Holiday to France", 1, "Holiday", false)
-        codeApp = Note("Code App", 4, "Work", false)
-        testApp = Note("Test App", 4, "Work", false)
+        codeApp = Note("Code App", 4, "Work", true)
+        testApp = Note("Test App", 4, "Work", true)
         swim = Note("Swim - Pool", 3, "Hobby", false)
 
         //adding 5 Note to the notes api
@@ -87,4 +88,81 @@ class NoteAPITest {
         }
     }
 
+    @Nested
+    inner class ShowActiveNotes {
+
+        @Test
+        fun `showActiveNotes returns No Notes Stored message when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfNotes())
+            assertTrue(emptyNotes!!.showActiveNotes().lowercase().contains("no notes"))
+        }
+
+        @Test
+        fun `showActiveNotes returns Notes when ArrayList has active notes stored`() {
+            assertEquals(5, populatedNotes!!.numberOfNotes())
+            val notesString = populatedNotes!!.showActiveNotes().lowercase()
+            assertTrue(notesString.contains("learning kotlin"))
+            assertTrue(notesString.contains("swim"))
+            assertTrue(notesString.contains("summer holiday"))
+
+            assertFalse(notesString.contains("code app"))
+            assertFalse(notesString.contains("test app"))
+        }
+    }
+
+    @Nested
+    inner class ShowArchivedNotes {
+
+        @Test
+        fun `showArchivedNotes returns No Notes Stored message when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfNotes())
+            assertTrue(emptyNotes!!.showArchivedNotes().lowercase().contains("no notes"))
+        }
+
+        @Test
+        fun `showArchivedNotes returns Notes when ArrayList has archived notes stored`() {
+            assertEquals(5, populatedNotes!!.numberOfNotes())
+            val notesString = populatedNotes!!.showArchivedNotes().lowercase()
+            assertFalse(notesString.contains("learning kotlin"))
+            assertFalse(notesString.contains("swim"))
+            assertFalse(notesString.contains("summer holiday"))
+
+            assertTrue(notesString.contains("code app"))
+            assertTrue(notesString.contains("test app"))
+        }
+    }
+
+    @Nested
+    inner class CountActiveNotes {
+
+        @Test
+        fun `countActiveNotes returns 0 when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfNotes())
+            assertTrue(emptyNotes!!.countActiveNotes().equals(0))
+        }
+
+        @Test
+        fun `countActiveNotes returns amount when ArrayList has active notes stored`() {
+            assertEquals(5, populatedNotes!!.numberOfNotes())
+            val notesInt = populatedNotes!!.countActiveNotes()
+            assertTrue(notesInt.equals(3))
+        }
+    }
+
+    @Nested
+    inner class CountArchivedNotes {
+
+        @Test
+        fun `countArchivedNotes returns 0 when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfNotes())
+            assertTrue(emptyNotes!!.countArchivedNotes().equals(0))
+        }
+
+        @Test
+        fun `countArchivedNotes returns amount when ArrayList has active notes stored`() {
+            assertEquals(5, populatedNotes!!.numberOfNotes())
+            val notesInt = populatedNotes!!.countArchivedNotes()
+            assertTrue(notesInt.equals(2))
+        }
+    }
 }
