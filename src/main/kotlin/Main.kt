@@ -92,11 +92,17 @@ fun listArchivedNotes(){
 }
 
 fun numberOfActiveNotes(){
-    //helper method to determine how many active notes there are
     println(noteAPI.countActiveNotes())
 }
 
 fun numberOfArchivedNotes(){
-    //helper method to determine how many archived notes there are
     println(noteAPI.countArchivedNotes())
+}
+
+fun listNotesByPriority(priority: Int){
+    println(noteAPI.listNotesBySelectedPriority(priority))
+}
+
+fun countNotesByPriority(priority: Int){
+    println(noteAPI.numberOfNotesByPriority(priority))
 }
