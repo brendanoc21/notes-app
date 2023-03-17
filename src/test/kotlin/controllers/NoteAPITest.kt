@@ -165,4 +165,87 @@ class NoteAPITest {
             assertTrue(notesInt.equals(2))
         }
     }
+
+    @Nested
+    inner class ShowNotesByPriority {
+
+        @Test
+        fun `listNotesBySelectedPriority returns No Notes Stored message when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfNotes())
+            assertTrue(emptyNotes!!.listNotesBySelectedPriority(1).lowercase().contains("no notes"))
+            assertTrue(emptyNotes!!.listNotesBySelectedPriority(2).lowercase().contains("no notes"))
+            assertTrue(emptyNotes!!.listNotesBySelectedPriority(3).lowercase().contains("no notes"))
+            assertTrue(emptyNotes!!.listNotesBySelectedPriority(4).lowercase().contains("no notes"))
+            assertTrue(emptyNotes!!.listNotesBySelectedPriority(5).lowercase().contains("no notes"))
+        }
+
+        @Test
+        fun `listNotesBySelectedPriority returns Notes when ArrayList has appropriate notes stored`() {
+            assertEquals(5, populatedNotes!!.numberOfNotes())
+            var notesString = populatedNotes!!.listNotesBySelectedPriority(1).lowercase()
+            assertTrue(notesString.contains("summer holiday"))
+            assertFalse(notesString.contains("code app"))
+            assertFalse(notesString.contains("test app"))
+            assertFalse(notesString.contains("learning kotlin"))
+            assertFalse(notesString.contains("swim"))
+
+
+            notesString = populatedNotes!!.listNotesBySelectedPriority(2).lowercase()
+            assertFalse(notesString.contains("summer holiday"))
+            assertFalse(notesString.contains("code app"))
+            assertFalse(notesString.contains("test app"))
+            assertFalse(notesString.contains("learning kotlin"))
+            assertFalse(notesString.contains("swim"))
+
+            notesString = populatedNotes!!.listNotesBySelectedPriority(3).lowercase()
+            assertFalse(notesString.contains("summer holiday"))
+            assertFalse(notesString.contains("code app"))
+            assertFalse(notesString.contains("test app"))
+            assertFalse(notesString.contains("learning kotlin"))
+            assertTrue(notesString.contains("swim"))
+
+            notesString = populatedNotes!!.listNotesBySelectedPriority(4).lowercase()
+            assertFalse(notesString.contains("summer holiday"))
+            assertTrue(notesString.contains("code app"))
+            assertTrue(notesString.contains("test app"))
+            assertFalse(notesString.contains("learning kotlin"))
+            assertFalse(notesString.contains("swim"))
+
+            notesString = populatedNotes!!.listNotesBySelectedPriority(5).lowercase()
+            assertFalse(notesString.contains("summer holiday"))
+            assertFalse(notesString.contains("code app"))
+            assertFalse(notesString.contains("test app"))
+            assertTrue(notesString.contains("learning kotlin"))
+            assertFalse(notesString.contains("swim"))
+        }
+    }
+
+    @Nested
+    inner class NumberOfNotesByPriority {
+
+        @Test
+        fun `numberOfNotesByPriority returns 0 when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfNotes())
+            assertTrue(emptyNotes!!.countArchivedNotes().equals(0))
+        }
+
+        @Test
+        fun `numberOfNotesByPriority returns amount when ArrayList has appropriate notes stored`() {
+            assertEquals(5, populatedNotes!!.numberOfNotes())
+            var notesInt = populatedNotes!!.numberOfNotesByPriority(1)
+            assertTrue(notesInt.equals(1))
+
+            notesInt = populatedNotes!!.numberOfNotesByPriority(2)
+            assertTrue(notesInt.equals(0))
+
+            notesInt = populatedNotes!!.numberOfNotesByPriority(3)
+            assertTrue(notesInt.equals(1))
+
+            notesInt = populatedNotes!!.numberOfNotesByPriority(4)
+            assertTrue(notesInt.equals(2))
+
+            notesInt = populatedNotes!!.numberOfNotesByPriority(5)
+            assertTrue(notesInt.equals(1))
+        }
+    }
 }
