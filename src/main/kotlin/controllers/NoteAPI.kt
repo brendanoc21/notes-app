@@ -64,6 +64,20 @@ class NoteAPI {
         }
     }
 
+    fun countActiveNotes(): Int {
+        return if (notes.isEmpty()) {
+            0
+        } else {
+            var amountOfNotes = 0
+            for (i in notes.indices) {
+                if(!notes[i].isNoteArchived) {
+                    amountOfNotes ++
+                }
+            }
+            amountOfNotes
+        }
+    }
+
     fun countArchivedNotes(): Int {
         return if (notes.isEmpty()) {
             0
@@ -78,17 +92,4 @@ class NoteAPI {
         }
     }
 
-    fun countActiveNotes(): Int {
-        return if (notes.isEmpty()) {
-            0
-        } else {
-            var amountOfNotes = 0
-            for (i in notes.indices) {
-                if(!notes[i].isNoteArchived) {
-                    amountOfNotes ++
-                }
-            }
-            amountOfNotes
-        }
-    }
 }
