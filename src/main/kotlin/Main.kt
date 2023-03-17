@@ -58,7 +58,7 @@ fun addNote(){
 }
 
 fun listNotes(){
-    //logger.info { "listNotes() function invoked" }
+    logger.info { "listNotes() function invoked" }
     println(noteAPI.listAllNotes())
 }
 
@@ -73,4 +73,22 @@ fun deleteNote(){
 fun exitApp(){
     logger.info { "exitApp() function invoked" }
     exit(0)
+}
+
+fun listActiveNotes(){
+    println(noteAPI.showActiveNotes())
+}
+
+fun listArchivedNotes(){
+    println(noteAPI.showArchivedNotes())
+}
+
+fun numberOfArchivedNotes(){
+    //helper method to determine how many archived notes there are
+    println(noteAPI.countArchivedNotes())
+}
+
+fun numberOfActiveNotes(){
+    //helper method to determine how many active notes there are
+    println(noteAPI.countActiveNotes())
 }
