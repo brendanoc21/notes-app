@@ -116,4 +116,7 @@ class NoteAPI(serializerType: Serializer){
             .joinToString (separator = "\n") { note ->
                 notes.indexOf(note).toString() + ": " + note.toString() }
 
+    fun searchByCategory(input: String): String =
+        formatListString(
+            notes.filter { note -> note.noteCategory.contains(input, ignoreCase = true) })
 }
