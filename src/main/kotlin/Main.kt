@@ -29,9 +29,10 @@ fun mainMenu() : Int {
          > |   2) List notes                |
          > |   3) Modify notes              |
          > |   4) Search notes              |
+         > |   5) Count notes               |
          > |                                |
-         > |   5) Save notes                |
-         > |   6) Load notes                |
+         > |   6) Save notes                |
+         > |   7) Load notes                |
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -46,8 +47,9 @@ fun runMenu() {
             2  -> listNotes()
             3  -> modify()
             4  -> search()
-            5  -> save()
-            6  -> load()
+            5  -> count()
+            6  -> save()
+            7  -> load()
             0  -> exitApp()
             else -> println("Invalid option entered: ${option}")
         }
@@ -134,6 +136,48 @@ fun modify() {
     }
 }
 
+fun count() {
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) Count by priority       |
+                  > |   2) Count by category       |
+                  > |   3) Count by active status  |
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1 -> countNotesByPriority();
+            2 -> countNotesByCategory();
+            3 -> countActiveArchived();
+            else -> println("Invalid option entered: " + option);
+        }
+    } else {
+        println("Option Invalid - No notes stored");
+    }
+}
+
+fun countActiveArchived(){
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) Count Active            |
+                  > |   2) Count Archived          |
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1 -> countActiveNotes();
+            2 -> countArchivedNotes();
+            else -> println("Invalid option entered: " + option);
+        }
+    } else {
+        println("Option Invalid - No notes stored");
+    }
+}
+
 
 fun updateNote() {
     //logger.info { "updateNotes() function invoked" }
@@ -194,11 +238,11 @@ fun listAllNotes() {
 
 fun listNotesByPriority(){
     val priority = readNextInt("Enter the priority(1-5) you wish to search: ")
-    countNotesByPriority(priority)
     println(noteAPI.listNotesBySelectedPriority(priority))
 }
 
-fun countNotesByPriority(priority: Int){
+fun countNotesByPriority(){
+    val priority = readNextInt("Enter the priority(1-5) you wish to count: ")
     println(noteAPI.numberOfNotesByPriority(priority))
 }
 
@@ -248,4 +292,17 @@ fun searchByCategory() {
     else{
         println(noteAPI.searchByCategory(input))
     }
+}
+
+fun countNotesByCategory(){
+    val category = readNextLine("Enter the category you wish to count: ")
+    println(noteAPI.numberOfCategory(category))
+}
+
+fun countActiveNotes(){
+    println(noteAPI.numberOfActiveNotes())
+}
+
+fun countArchivedNotes(){
+    println(noteAPI.numberOfArchivedNotes())
 }
