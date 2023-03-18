@@ -193,7 +193,17 @@ fun archiveNote() {
 }
 
 fun searchByTitle() {
-    val input = readNextLine("Enter a title for the note: ")
+    val input = readNextLine("Enter title of the note: ")
+    if(noteAPI.searchByTitle(input) == ""){
+        println("No notes of title found")
+    }
+    else{
+        println(noteAPI.searchByTitle(input))
+    }
+}
+
+fun searchByCategory() {
+    val input = readNextLine("Enter category of the note: ")
     if(noteAPI.searchByTitle(input) == ""){
         println("No notes of title found")
     }

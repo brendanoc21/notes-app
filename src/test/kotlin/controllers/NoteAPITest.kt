@@ -369,5 +369,21 @@ class NoteAPITest {
             assertTrue(populatedNotes!!.searchByTitle("test app").lowercase().contains("work"))
             assertTrue(populatedNotes!!.searchByTitle("swim - pool").lowercase().contains("hobby"))
         }
+
+        @Test
+        fun `searchByCategory returns No Notes Stored message when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfNotes())
+            assertTrue(emptyNotes!!.searchByCategory("college").lowercase().contains(""))
+        }
+        @Test
+        fun `searchByCategory acquires correct category`(){
+            assertEquals(5, populatedNotes!!.numberOfNotes())
+            assertTrue(populatedNotes!!.searchByCategory("college").lowercase().contains("learning kotlin"))
+            assertFalse(populatedNotes!!.searchByCategory("college").lowercase().contains("summer"))
+            assertTrue(populatedNotes!!.searchByCategory("holiday").lowercase().contains("summer"))
+            assertTrue(populatedNotes!!.searchByCategory("work").lowercase().contains("code app"))
+            assertTrue(populatedNotes!!.searchByCategory("work").lowercase().contains("test app"))
+            assertTrue(populatedNotes!!.searchByCategory("hobby").lowercase().contains("swim"))
+        }
     }
 }
