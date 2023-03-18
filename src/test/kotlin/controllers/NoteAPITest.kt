@@ -317,6 +317,8 @@ class NoteAPITest {
             assertFalse(populatedNotes!!.findNote(1)!!.isNoteArchived)
             assertTrue(populatedNotes!!.archiveNote(1))
             assertTrue(populatedNotes!!.findNote(1)!!.isNoteArchived)
+            assertTrue(populatedNotes!!.archiveNote(1))
+            assertFalse(populatedNotes!!.findNote(1)!!.isNoteArchived)
         }
     }
 
