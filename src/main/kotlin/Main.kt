@@ -61,7 +61,8 @@ fun addNote(){
     val noteTitle = readNextLine("Enter a title for the note: ")
     val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
     val noteCategory = readNextLine("Enter a category for the note: ")
-    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false))
+    val noteContents = readNextLine("Enter contents of the note: ")
+    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false, noteContents))
 
     if (isAdded) {
         println("Added Successfully")
@@ -189,9 +190,9 @@ fun updateNote() {
             val noteTitle = readNextLine("Enter a title for the note: ")
             val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val noteCategory = readNextLine("Enter a category for the note: ")
-
+            val noteContents = readNextLine("Enter contents of the note: ")
             //pass the index of the note and the new note details to NoteAPI for updating and check for success.
-            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false))){
+            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false, noteContents))){
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -220,7 +221,7 @@ fun deleteNote(){
 }
 
 fun exitApp(){
-    logger.info { "exitApp() function invoked" }
+    //logger.info { "exitApp() function invoked" }
     exit(0)
 }
 
