@@ -32,6 +32,7 @@ fun mainMenu() : Int {
          > |   5) Archive a note            |
          > |   6) List active notes         |
          > |   7) List archived notes       |
+         > |   8) Search notes by title     |
          > |                                |
          > |   20) Save notes               |
          > |   21) Load notes               |
@@ -52,6 +53,7 @@ fun runMenu() {
             5  -> archiveNote()
             6  -> listActiveNotes()
             7  -> listArchivedNotes()
+            8  -> searchByTitle()
             20 -> save()
             21 -> load()
             0  -> exitApp()
@@ -187,5 +189,15 @@ fun archiveNote() {
         } else {
             println("Archive NOT Successful")
         }
+    }
+}
+
+fun searchByTitle() {
+    val input = readNextLine("Enter a title for the note: ")
+    if(noteAPI.searchByTitle(input) == ""){
+        println("No notes of title found")
+    }
+    else{
+        println(noteAPI.searchByTitle(input))
     }
 }

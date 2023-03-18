@@ -2,6 +2,8 @@ package controllers
 
 import models.Note
 import persistence.Serializer
+import java.util.*
+import kotlin.collections.ArrayList
 
 class NoteAPI(serializerType: Serializer){
 
@@ -129,5 +131,10 @@ class NoteAPI(serializerType: Serializer){
         }
         return false
     }
+
+    fun searchByTitle(input: String): String =
+        notes.filter {
+            it.noteTitle.lowercase().contains(input)}.joinToString(separator = "\n") { note ->
+            notes.indexOf(note).toString() + ": " + note.toString() }
 
 }
