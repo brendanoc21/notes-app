@@ -1,11 +1,12 @@
 # Notes App
 Notes app in Kotlin for Software Development Tools module
-
-- Ability to add notes to array list through command line menu
-- Ability to delete notes and set archived status
-
-- Functionality for listing all notes
-- Functionality for listing notes that are active, archived
--- Submenu for selecting between three aforementioned options
+This project has the ability to:
+- Add notes to array list through command line menu, containing title, category, contents, priority and archived status
+- Delete notes from array list
+- Listing notes by all, active or archived
+- Modify notes by updating, archiving or deleting them
+- Search notes by title, category adn priority
+- Count notes by priority, category or active status
+-- Several submenus for selecting between three options in each category and between archived/active
 
 - Persistence through XML or JSON with saving and loading
