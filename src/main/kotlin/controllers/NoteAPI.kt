@@ -102,6 +102,10 @@ class NoteAPI(serializerType: Serializer){
                 noteToArchive.isNoteArchived = true
                 return true
             }
+            else if (noteToArchive.isNoteArchived) {
+                noteToArchive.isNoteArchived = false
+                return true
+            }
         }
         return false
     }

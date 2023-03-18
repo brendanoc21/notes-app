@@ -121,7 +121,7 @@ fun modify() {
             """
                   > --------------------------------
                   > |   1) Update a note           |
-                  > |   2) Archive a note          |
+                  > |   2) Archive/Activate a note |
                   > |   3) Delete a note           |
                   > --------------------------------
          > ==>> """.trimMargin(">"))
@@ -264,13 +264,13 @@ fun load() {
 }
 
 fun archiveNote() {
-    listActiveNotes()
-    if (noteAPI.numberOfActiveNotes() > 0) {
-        val indexToArchive = readNextInt("Enter the index of the note to archive: ")
+    listNotes()
+    if (noteAPI.numberOfNotes() > 0) {
+        val indexToArchive = readNextInt("Enter the index of the note to adjust: ")
         if (noteAPI.archiveNote(indexToArchive)) {
-            println("Archive Successful!")
+            println("Adjustment Successful!")
         } else {
-            println("Archive NOT Successful")
+            println("Adjustment NOT Successful")
         }
     }
 }
