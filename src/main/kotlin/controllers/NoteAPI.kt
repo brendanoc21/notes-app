@@ -54,7 +54,7 @@ class NoteAPI(serializerType: Serializer){
         else {
             val listOfNotes = formatListString(notes.filter{ note -> note.notePriority == priority})
             if (listOfNotes.equals("")) "No notes with priority: $priority"
-            else "${numberOfNotesByPriority(priority)} notes with priority $priority: $listOfNotes"
+            else "${numberOfNotesByPriority(priority)} notes with priority $priority: \n $listOfNotes"
         }
 
     fun numberOfNotesByPriority(priority: Int): Int = notes.count {note: Note -> note.notePriority == priority}
