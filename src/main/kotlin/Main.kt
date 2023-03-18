@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
 fun mainMenu() : Int {
     return ScannerInput.readNextInt(""" 
          > ----------------------------------
-         > |        NOTEs APP PROJECT       |
+         > |        NOTES APP PROJECT       |
          > ----------------------------------
          > | NOTE MENU                      |
          > |   1) Add a note                |
