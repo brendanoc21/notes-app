@@ -36,61 +36,54 @@ class NoteAPI {
         return (index >= 0 && index < list.size)
     }
 
-    fun showActiveNotes(): String {
-        return if (notes.isEmpty()) {
-            "No notes stored"
+    fun listActiveNotes(): String {
+        return if (numberOfActiveNotes() == 0) {
+            "No active notes stored"
         } else {
-            var listOfNotes = ""
-            for (i in notes.indices) {
-                if(!notes[i].isNoteArchived) {
-                    listOfNotes += "${i}: ${notes[i]} \n"
+            var listOfActiveNotes = ""
+            for (note in notes) {
+                if (!note.isNoteArchived) {
+                    listOfActiveNotes += "${notes.indexOf(note)}: $note \n"
                 }
             }
-            listOfNotes
+            listOfActiveNotes
         }
     }
 
-    fun showArchivedNotes(): String {
-        return if (notes.isEmpty()) {
-            "No notes stored"
+    fun listArchivedNotes(): String {
+        return if (numberOfArchivedNotes() == 0) {
+            "No archived notes stored"
         } else {
-            var listOfNotes = ""
-            for (i in notes.indices) {
-                if(notes[i].isNoteArchived) {
-                    listOfNotes += "${i}: ${notes[i]} \n"
+            var listOfArchivedNotes = ""
+            for (note in notes) {
+                if (note.isNoteArchived) {
+                    listOfArchivedNotes += "${notes.indexOf(note)}: $note \n"
                 }
             }
-            listOfNotes
+            listOfArchivedNotes
         }
     }
 
-    fun countActiveNotes(): Int {
-        return if (notes.isEmpty()) {
-            0
-        } else {
-            var amountOfNotes = 0
-            for (i in notes.indices) {
-                if(!notes[i].isNoteArchived) {
-                    amountOfNotes ++
-                }
+    fun numberOfArchivedNotes(): Int {
+        var counter = 0
+        for (note in notes) {
+            if (note.isNoteArchived) {
+                counter++
             }
-            amountOfNotes
         }
+        return counter
     }
 
-    fun countArchivedNotes(): Int {
-        return if (notes.isEmpty()) {
-            0
-        } else {
-            var amountOfNotes = 0
-            for (i in notes.indices) {
-                if(notes[i].isNoteArchived) {
-                    amountOfNotes ++
-                }
+    fun numberOfActiveNotes(): Int {
+        var counter = 0
+        for (note in notes) {
+            if (!note.isNoteArchived) {
+                counter++
             }
-            amountOfNotes
         }
+        return counter
     }
+
 
     fun listNotesBySelectedPriority(priority: Int): String {
         return if (notes.isEmpty()) {
@@ -98,27 +91,30 @@ class NoteAPI {
         } else {
             var listOfNotes = ""
             for (i in notes.indices) {
-                if(notes[i].notePriority == priority) {
-                    listOfNotes += "${i}: ${notes[i]} \n"
+                if (notes[i].notePriority == priority) {
+                    listOfNotes +=
+                        """$i: ${notes[i]}
+                        """.trimIndent()
                 }
             }
-            listOfNotes
+            if (listOfNotes.equals("")) {
+                "No notes with priority: $priority"
+            } else {
+                "${numberOfNotesByPriority(priority)} notes with priority $priority: $listOfNotes"
+            }
         }
     }
 
     fun numberOfNotesByPriority(priority: Int): Int {
-        return if (notes.isEmpty()) {
-            0
-        } else {
-            var amountOfNotes = 0
-            for (i in notes.indices) {
-                if(notes[i].notePriority == priority) {
-                    amountOfNotes ++
-                }
+        var counter = 0
+        for (note in notes) {
+            if (note.notePriority == priority) {
+                counter++
             }
-            amountOfNotes
         }
+        return counter
     }
+
 
 
 }
