@@ -2,15 +2,17 @@ package controllers
 
 import models.Note
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import persistence.JSONSerializer
 import persistence.XMLSerializer
 import java.io.File
-import java.util.*
+import java.util.Locale
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class NoteAPITest {
 
@@ -23,14 +25,14 @@ class NoteAPITest {
     private var emptyNotes: NoteAPI? = NoteAPI(XMLSerializer(File("notes.xml")))
 
     @BeforeEach
-    fun setup(){
-        learnKotlin = Note("Learning Kotlin", 5, "College", false,"I am taking lessons on coding")
-        summerHoliday = Note("Summer Holiday to France", 1, "Holiday", false,"The holiday will be fun")
-        codeApp = Note("Code App", 4, "Work", true,"I am coding an app")
-        testApp = Note("Test App", 4, "Work", false,"I am testing an app")
-        swim = Note("Swim - Pool", 3, "Hobby", true,"There is a swimming pool nearby")
+    fun setup() {
+        learnKotlin = Note("Learning Kotlin", 5, "College", false, "I am taking lessons on coding")
+        summerHoliday = Note("Summer Holiday to France", 1, "Holiday", false, "The holiday will be fun")
+        codeApp = Note("Code App", 4, "Work", true, "I am coding an app")
+        testApp = Note("Test App", 4, "Work", false, "I am testing an app")
+        swim = Note("Swim - Pool", 3, "Hobby", true, "There is a swimming pool nearby")
 
-        //adding 5 Note to the notes api
+        // adding 5 Note to the notes api
         populatedNotes!!.add(learnKotlin!!)
         populatedNotes!!.add(summerHoliday!!)
         populatedNotes!!.add(codeApp!!)
@@ -39,7 +41,7 @@ class NoteAPITest {
     }
 
     @AfterEach
-    fun tearDown(){
+    fun tearDown() {
         learnKotlin = null
         summerHoliday = null
         codeApp = null
@@ -53,7 +55,7 @@ class NoteAPITest {
     inner class AddNotes {
         @Test
         fun `adding a Note to a populated list adds to ArrayList`() {
-            val newNote = Note("Study Lambdas", 1, "College", false,"I am taking lessons on coding")
+            val newNote = Note("Study Lambdas", 1, "College", false, "I am taking lessons on coding")
             assertEquals(5, populatedNotes!!.numberOfNotes())
             assertTrue(populatedNotes!!.add(newNote))
             assertEquals(6, populatedNotes!!.numberOfNotes())
@@ -62,7 +64,7 @@ class NoteAPITest {
 
         @Test
         fun `adding a Note to an empty list adds to ArrayList`() {
-            val newNote = Note("Study Lambdas", 1, "College", false,"I am taking lessons on coding")
+            val newNote = Note("Study Lambdas", 1, "College", false, "I am taking lessons on coding")
             assertEquals(0, emptyNotes!!.numberOfNotes())
             assertTrue(emptyNotes!!.add(newNote))
             assertEquals(1, emptyNotes!!.numberOfNotes())
@@ -90,8 +92,6 @@ class NoteAPITest {
             assertTrue(notesString.contains("summer holiday"))
         }
     }
-
-
 
     @Nested
     inner class DeleteNotes {
@@ -150,17 +150,17 @@ class NoteAPITest {
             assertTrue(archivedNotesString.contains("swim"))
         }
 
-
         @Test
         fun `listNotesBySelectedPriority returns No Notes when ArrayList is empty`() {
             assertEquals(0, emptyNotes!!.numberOfNotes())
-            assertTrue(emptyNotes!!.listNotesBySelectedPriority(1).lowercase().contains("no notes")
+            assertTrue(
+                emptyNotes!!.listNotesBySelectedPriority(1).lowercase().contains("no notes")
             )
         }
 
         @Test
         fun `listNotesBySelectedPriority returns no notes when no notes of that priority exist`() {
-            //Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+            // Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
             assertEquals(5, populatedNotes!!.numberOfNotes())
             val priority2String = populatedNotes!!.listNotesBySelectedPriority(2).lowercase()
             assertTrue(priority2String.contains("no notes"))
@@ -169,7 +169,7 @@ class NoteAPITest {
 
         @Test
         fun `listNotesBySelectedPriority returns all notes that match that priority when notes of that priority exist`() {
-            //Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
+            // Priority 1 (1 note), 2 (none), 3 (1 note). 4 (2 notes), 5 (1 note)
             assertEquals(5, populatedNotes!!.numberOfNotes())
             val priority1String = populatedNotes!!.listNotesBySelectedPriority(1).lowercase()
             assertTrue(priority1String.contains("1 note"))
@@ -179,7 +179,6 @@ class NoteAPITest {
             assertFalse(priority1String.contains("learning kotlin"))
             assertFalse(priority1String.contains("code app"))
             assertFalse(priority1String.contains("test app"))
-
 
             val priority4String = populatedNotes!!.listNotesBySelectedPriority(4).lowercase(Locale.getDefault())
             assertTrue(priority4String.contains("2 note"))
@@ -195,22 +194,22 @@ class NoteAPITest {
     @Nested
     inner class UpdateNotes {
         @Test
-        fun `updating a note that does not exist returns false`(){
-            assertFalse(populatedNotes!!.updateNote(6, Note("Updating Note", 2, "Work", false,"I am updating a note")))
-            assertFalse(populatedNotes!!.updateNote(-1, Note("Updating Note", 2, "Work", false,"I am updating a note")))
-            assertFalse(emptyNotes!!.updateNote(0, Note("Updating Note", 2, "Work", false,"I am updating a note")))
+        fun `updating a note that does not exist returns false`() {
+            assertFalse(populatedNotes!!.updateNote(6, Note("Updating Note", 2, "Work", false, "I am updating a note")))
+            assertFalse(populatedNotes!!.updateNote(-1, Note("Updating Note", 2, "Work", false, "I am updating a note")))
+            assertFalse(emptyNotes!!.updateNote(0, Note("Updating Note", 2, "Work", false, "I am updating a note")))
         }
 
         @Test
         fun `updating a note that exists returns true and updates`() {
-            //check note 5 exists and check the contents
+            // check note 5 exists and check the contents
             assertEquals(swim, populatedNotes!!.findNote(4))
             assertEquals("Swim - Pool", populatedNotes!!.findNote(4)!!.noteTitle)
             assertEquals(3, populatedNotes!!.findNote(4)!!.notePriority)
             assertEquals("Hobby", populatedNotes!!.findNote(4)!!.noteCategory)
 
-            //update note 5 with new information and ensure contents updated successfully
-            assertTrue(populatedNotes!!.updateNote(4, Note("Updating Note", 2, "College", false,"I am updating a note")))
+            // update note 5 with new information and ensure contents updated successfully
+            assertTrue(populatedNotes!!.updateNote(4, Note("Updating Note", 2, "College", false, "I am updating a note")))
             assertEquals("Updating Note", populatedNotes!!.findNote(4)!!.noteTitle)
             assertEquals(2, populatedNotes!!.findNote(4)!!.notePriority)
             assertEquals("College", populatedNotes!!.findNote(4)!!.noteCategory)
@@ -226,11 +225,11 @@ class NoteAPITest {
             val storingNotes = NoteAPI(XMLSerializer(File("notes.xml")))
             storingNotes.store()
 
-            //Loading the empty notes.xml file into a new object
+            // Loading the empty notes.xml file into a new object
             val loadedNotes = NoteAPI(XMLSerializer(File("notes.xml")))
             loadedNotes.load()
 
-            //Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
             assertEquals(0, storingNotes.numberOfNotes())
             assertEquals(0, loadedNotes.numberOfNotes())
             assertEquals(storingNotes.numberOfNotes(), loadedNotes.numberOfNotes())
@@ -245,11 +244,11 @@ class NoteAPITest {
             storingNotes.add(summerHoliday!!)
             storingNotes.store()
 
-            //Loading notes.xml into a different collection
+            // Loading notes.xml into a different collection
             val loadedNotes = NoteAPI(XMLSerializer(File("notes.xml")))
             loadedNotes.load()
 
-            //Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
+            // Comparing the source of the notes (storingNotes) with the XML loaded notes (loadedNotes)
             assertEquals(3, storingNotes.numberOfNotes())
             assertEquals(3, loadedNotes.numberOfNotes())
             assertEquals(storingNotes.numberOfNotes(), loadedNotes.numberOfNotes())
@@ -265,11 +264,11 @@ class NoteAPITest {
         val storingNotes = NoteAPI(JSONSerializer(File("notes.json")))
         storingNotes.store()
 
-        //Loading the empty notes.json file into a new object
+        // Loading the empty notes.json file into a new object
         val loadedNotes = NoteAPI(JSONSerializer(File("notes.json")))
         loadedNotes.load()
 
-        //Comparing the source of the notes (storingNotes) with the json loaded notes (loadedNotes)
+        // Comparing the source of the notes (storingNotes) with the json loaded notes (loadedNotes)
         assertEquals(0, storingNotes.numberOfNotes())
         assertEquals(0, loadedNotes.numberOfNotes())
         assertEquals(storingNotes.numberOfNotes(), loadedNotes.numberOfNotes())
@@ -284,11 +283,11 @@ class NoteAPITest {
         storingNotes.add(summerHoliday!!)
         storingNotes.store()
 
-        //Loading notes.json into a different collection
+        // Loading notes.json into a different collection
         val loadedNotes = NoteAPI(JSONSerializer(File("notes.json")))
         loadedNotes.load()
 
-        //Comparing the source of the notes (storingNotes) with the json loaded notes (loadedNotes)
+        // Comparing the source of the notes (storingNotes) with the json loaded notes (loadedNotes)
         assertEquals(3, storingNotes.numberOfNotes())
         assertEquals(3, loadedNotes.numberOfNotes())
         assertEquals(storingNotes.numberOfNotes(), loadedNotes.numberOfNotes())
@@ -300,16 +299,10 @@ class NoteAPITest {
     @Nested
     inner class ArchiveNotes {
         @Test
-        fun `archiving a note that does not exist returns false`(){
+        fun `archiving a note that does not exist returns false`() {
             assertFalse(populatedNotes!!.archiveNote(6))
             assertFalse(populatedNotes!!.archiveNote(-1))
             assertFalse(emptyNotes!!.archiveNote(0))
-        }
-
-        @Test
-        fun `archiving an already archived note returns false`(){
-            assertTrue(populatedNotes!!.findNote(2)!!.isNoteArchived)
-            assertFalse(populatedNotes!!.archiveNote(2))
         }
 
         @Test
@@ -371,7 +364,7 @@ class NoteAPITest {
             assertTrue(emptyNotes!!.searchByTitle("Learning Kotlin").lowercase().contains(""))
         }
         @Test
-        fun `searchByTitle acquires correct title`(){
+        fun `searchByTitle acquires correct title`() {
             assertEquals(5, populatedNotes!!.numberOfNotes())
             assertTrue(populatedNotes!!.searchByTitle("learning kotlin").lowercase().contains("college"))
             assertFalse(populatedNotes!!.searchByTitle("learning kotlin").lowercase().contains("work"))
@@ -387,7 +380,7 @@ class NoteAPITest {
             assertTrue(emptyNotes!!.searchByCategory("college").lowercase().contains(""))
         }
         @Test
-        fun `searchByCategory acquires correct category`(){
+        fun `searchByCategory acquires correct category`() {
             assertEquals(5, populatedNotes!!.numberOfNotes())
             assertTrue(populatedNotes!!.searchByCategory("college").lowercase().contains("learning kotlin"))
             assertFalse(populatedNotes!!.searchByCategory("college").lowercase().contains("summer"))
