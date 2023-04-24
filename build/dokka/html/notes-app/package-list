@@ -1,0 +1,83 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:////PointingToDeclaration/notes-app/[root]/index.html
+$dokka.location://addNote/#/PointingToDeclaration/notes-app/[root]/add-note.html
+$dokka.location://archiveNote/#/PointingToDeclaration/notes-app/[root]/archive-note.html
+$dokka.location://count/#/PointingToDeclaration/notes-app/[root]/count.html
+$dokka.location://countActiveArchived/#/PointingToDeclaration/notes-app/[root]/count-active-archived.html
+$dokka.location://countActiveNotes/#/PointingToDeclaration/notes-app/[root]/count-active-notes.html
+$dokka.location://countArchivedNotes/#/PointingToDeclaration/notes-app/[root]/count-archived-notes.html
+$dokka.location://countNotesByCategory/#/PointingToDeclaration/notes-app/[root]/count-notes-by-category.html
+$dokka.location://countNotesByPriority/#/PointingToDeclaration/notes-app/[root]/count-notes-by-priority.html
+$dokka.location://deleteNote/#/PointingToDeclaration/notes-app/[root]/delete-note.html
+$dokka.location://exitApp/#/PointingToDeclaration/notes-app/[root]/exit-app.html
+$dokka.location://listActiveNotes/#/PointingToDeclaration/notes-app/[root]/list-active-notes.html
+$dokka.location://listAllNotes/#/PointingToDeclaration/notes-app/[root]/list-all-notes.html
+$dokka.location://listArchivedNotes/#/PointingToDeclaration/notes-app/[root]/list-archived-notes.html
+$dokka.location://listNotes/#/PointingToDeclaration/notes-app/[root]/list-notes.html
+$dokka.location://listNotesByPriority/#/PointingToDeclaration/notes-app/[root]/list-notes-by-priority.html
+$dokka.location://load/#/PointingToDeclaration/notes-app/[root]/load.html
+$dokka.location://main/#kotlin.Array[kotlin.String]/PointingToDeclaration/notes-app/[root]/main.html
+$dokka.location://mainMenu/#/PointingToDeclaration/notes-app/[root]/main-menu.html
+$dokka.location://modify/#/PointingToDeclaration/notes-app/[root]/modify.html
+$dokka.location://runMenu/#/PointingToDeclaration/notes-app/[root]/run-menu.html
+$dokka.location://save/#/PointingToDeclaration/notes-app/[root]/save.html
+$dokka.location://search/#/PointingToDeclaration/notes-app/[root]/search.html
+$dokka.location://searchByCategory/#/PointingToDeclaration/notes-app/[root]/search-by-category.html
+$dokka.location://searchByTitle/#/PointingToDeclaration/notes-app/[root]/search-by-title.html
+$dokka.location://updateNote/#/PointingToDeclaration/notes-app/[root]/update-note.html
+$dokka.location:controllers////PointingToDeclaration/notes-app/controllers/index.html
+$dokka.location:controllers/NoteAPI///PointingToDeclaration/notes-app/controllers/-note-a-p-i/index.html
+$dokka.location:controllers/NoteAPI/NoteAPI/#persistence.Serializer/PointingToDeclaration/notes-app/controllers/-note-a-p-i/-note-a-p-i.html
+$dokka.location:controllers/NoteAPI/add/#models.Note/PointingToDeclaration/notes-app/controllers/-note-a-p-i/add.html
+$dokka.location:controllers/NoteAPI/archiveNote/#kotlin.Int/PointingToDeclaration/notes-app/controllers/-note-a-p-i/archive-note.html
+$dokka.location:controllers/NoteAPI/deleteNote/#kotlin.Int/PointingToDeclaration/notes-app/controllers/-note-a-p-i/delete-note.html
+$dokka.location:controllers/NoteAPI/findNote/#kotlin.Int/PointingToDeclaration/notes-app/controllers/-note-a-p-i/find-note.html
+$dokka.location:controllers/NoteAPI/isValidIndex/#kotlin.Int/PointingToDeclaration/notes-app/controllers/-note-a-p-i/is-valid-index.html
+$dokka.location:controllers/NoteAPI/isValidListIndex/#kotlin.Int#kotlin.collections.List[kotlin.Any]/PointingToDeclaration/notes-app/controllers/-note-a-p-i/is-valid-list-index.html
+$dokka.location:controllers/NoteAPI/listActiveNotes/#/PointingToDeclaration/notes-app/controllers/-note-a-p-i/list-active-notes.html
+$dokka.location:controllers/NoteAPI/listAllNotes/#/PointingToDeclaration/notes-app/controllers/-note-a-p-i/list-all-notes.html
+$dokka.location:controllers/NoteAPI/listArchivedNotes/#/PointingToDeclaration/notes-app/controllers/-note-a-p-i/list-archived-notes.html
+$dokka.location:controllers/NoteAPI/listNotesBySelectedPriority/#kotlin.Int/PointingToDeclaration/notes-app/controllers/-note-a-p-i/list-notes-by-selected-priority.html
+$dokka.location:controllers/NoteAPI/load/#/PointingToDeclaration/notes-app/controllers/-note-a-p-i/load.html
+$dokka.location:controllers/NoteAPI/numberOfActiveNotes/#/PointingToDeclaration/notes-app/controllers/-note-a-p-i/number-of-active-notes.html
+$dokka.location:controllers/NoteAPI/numberOfArchivedNotes/#/PointingToDeclaration/notes-app/controllers/-note-a-p-i/number-of-archived-notes.html
+$dokka.location:controllers/NoteAPI/numberOfCategory/#kotlin.String/PointingToDeclaration/notes-app/controllers/-note-a-p-i/number-of-category.html
+$dokka.location:controllers/NoteAPI/numberOfNotes/#/PointingToDeclaration/notes-app/controllers/-note-a-p-i/number-of-notes.html
+$dokka.location:controllers/NoteAPI/numberOfNotesByPriority/#kotlin.Int/PointingToDeclaration/notes-app/controllers/-note-a-p-i/number-of-notes-by-priority.html
+$dokka.location:controllers/NoteAPI/searchByCategory/#kotlin.String/PointingToDeclaration/notes-app/controllers/-note-a-p-i/search-by-category.html
+$dokka.location:controllers/NoteAPI/searchByTitle/#kotlin.String/PointingToDeclaration/notes-app/controllers/-note-a-p-i/search-by-title.html
+$dokka.location:controllers/NoteAPI/store/#/PointingToDeclaration/notes-app/controllers/-note-a-p-i/store.html
+$dokka.location:controllers/NoteAPI/updateNote/#kotlin.Int#models.Note?/PointingToDeclaration/notes-app/controllers/-note-a-p-i/update-note.html
+$dokka.location:models////PointingToDeclaration/notes-app/models/index.html
+$dokka.location:models/Note///PointingToDeclaration/notes-app/models/-note/index.html
+$dokka.location:models/Note/Note/#kotlin.String#kotlin.Int#kotlin.String#kotlin.Boolean#kotlin.String/PointingToDeclaration/notes-app/models/-note/-note.html
+$dokka.location:models/Note/isNoteArchived/#/PointingToDeclaration/notes-app/models/-note/is-note-archived.html
+$dokka.location:models/Note/noteCategory/#/PointingToDeclaration/notes-app/models/-note/note-category.html
+$dokka.location:models/Note/noteContents/#/PointingToDeclaration/notes-app/models/-note/note-contents.html
+$dokka.location:models/Note/notePriority/#/PointingToDeclaration/notes-app/models/-note/note-priority.html
+$dokka.location:models/Note/noteTitle/#/PointingToDeclaration/notes-app/models/-note/note-title.html
+$dokka.location:models/Note/toString/#/PointingToDeclaration/notes-app/models/-note/to-string.html
+$dokka.location:persistence////PointingToDeclaration/notes-app/persistence/index.html
+$dokka.location:persistence/JSONSerializer///PointingToDeclaration/notes-app/persistence/-j-s-o-n-serializer/index.html
+$dokka.location:persistence/JSONSerializer/JSONSerializer/#java.io.File/PointingToDeclaration/notes-app/persistence/-j-s-o-n-serializer/-j-s-o-n-serializer.html
+$dokka.location:persistence/JSONSerializer/read/#/PointingToDeclaration/notes-app/persistence/-j-s-o-n-serializer/read.html
+$dokka.location:persistence/JSONSerializer/write/#kotlin.Any?/PointingToDeclaration/notes-app/persistence/-j-s-o-n-serializer/write.html
+$dokka.location:persistence/Serializer///PointingToDeclaration/notes-app/persistence/-serializer/index.html
+$dokka.location:persistence/Serializer/read/#/PointingToDeclaration/notes-app/persistence/-serializer/read.html
+$dokka.location:persistence/Serializer/write/#kotlin.Any?/PointingToDeclaration/notes-app/persistence/-serializer/write.html
+$dokka.location:persistence/XMLSerializer///PointingToDeclaration/notes-app/persistence/-x-m-l-serializer/index.html
+$dokka.location:persistence/XMLSerializer/XMLSerializer/#java.io.File/PointingToDeclaration/notes-app/persistence/-x-m-l-serializer/-x-m-l-serializer.html
+$dokka.location:persistence/XMLSerializer/read/#/PointingToDeclaration/notes-app/persistence/-x-m-l-serializer/read.html
+$dokka.location:persistence/XMLSerializer/write/#kotlin.Any?/PointingToDeclaration/notes-app/persistence/-x-m-l-serializer/write.html
+$dokka.location:utils////PointingToDeclaration/notes-app/utils/index.html
+$dokka.location:utils/ScannerInput///PointingToDeclaration/notes-app/utils/-scanner-input/index.html
+$dokka.location:utils/ScannerInput/readNextChar/#kotlin.String?/PointingToDeclaration/notes-app/utils/-scanner-input/read-next-char.html
+$dokka.location:utils/ScannerInput/readNextDouble/#kotlin.String?/PointingToDeclaration/notes-app/utils/-scanner-input/read-next-double.html
+$dokka.location:utils/ScannerInput/readNextInt/#kotlin.String?/PointingToDeclaration/notes-app/utils/-scanner-input/read-next-int.html
+$dokka.location:utils/ScannerInput/readNextLine/#kotlin.String?/PointingToDeclaration/notes-app/utils/-scanner-input/read-next-line.html
+controllers
+models
+persistence
+utils
+

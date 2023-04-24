@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ScannerInput.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">notes-app</a> &gt; <a href="index.source.html" class="el_package">utils</a> &gt; <span class="el_source">ScannerInput.kt</span></div><h1>ScannerInput.kt</h1><pre class="source lang-java linenums">package utils
+
+import java.lang.NumberFormatException
+import java.util.Scanner
+
+/**
+ * This class provides methods for the robust handling of I/O using Scanner.
+ * It creates a new Scanner object for each read from the user, thereby eliminating the Scanner bug
+ * (where the buffers don't flush correctly after an int read).
+ *
+ * The methods also parse the numeric data entered to ensure it is correct. If it isn't correct,
+ * the user is prompted to enter it again.
+ *
+ * @author Siobhan Drohan, Mairead Meagher
+ * @since 1.0
+ */
+
+object ScannerInput {
+    /**
+     * Read an int from the user.
+     * If the entered data isn't actually an int the user is prompted again to enter the int.
+     *
+     * @param prompt  The information printed to the console for the user to read
+     * @return The number read from the user and verified as an int.
+     */
+    @JvmStatic
+    fun readNextInt(prompt: String?): Int {
+        do {
+<span class="nc" id="L29">            try {</span>
+<span class="nc" id="L30">                print(prompt)</span>
+<span class="nc" id="L31">                return Scanner(System.`in`).next().toInt()</span>
+<span class="nc" id="L32">            } catch (e: NumberFormatException) {</span>
+<span class="nc" id="L33">                System.err.println(&quot;\tEnter a number please.&quot;)</span>
+            }
+<span class="nc" id="L35">        } while (true)</span>
+    }
+
+    /**
+     * Read a double from the user.  If the entered data isn't actually a double,
+     * the user is prompted again to enter the double.
+     *
+     * @param prompt  The information printed to the console for the user to read
+     * @return The number read from the user and verified as a double.
+     */
+    @JvmStatic
+    fun readNextDouble(prompt: String?): Double {
+        do {
+<span class="nc" id="L48">            try {</span>
+<span class="nc" id="L49">                print(prompt)</span>
+<span class="nc" id="L50">                return Scanner(System.`in`).next().toDouble()</span>
+<span class="nc" id="L51">            } catch (e: NumberFormatException) {</span>
+<span class="nc" id="L52">                System.err.println(&quot;\tEnter a number please.&quot;)</span>
+            }
+<span class="nc" id="L54">        } while (true)</span>
+    }
+
+    /**
+     * Read a line of text from the user.  There is no validation done on the entered data.
+     *
+     * @param prompt  The information printed to the console for the user to read
+     * @return The String read from the user.
+     */
+    @JvmStatic
+    fun readNextLine(prompt: String?): String {
+<span class="nc" id="L65">        print(prompt)</span>
+<span class="nc" id="L66">        return Scanner(System.`in`).nextLine()</span>
+    }
+
+    /**
+     * Read a single character of text from the user.  There is no validation done on the entered data.
+     *
+     * @param prompt  The information printed to the console for the user to read
+     * @return The char read from the user.
+     */
+    @JvmStatic
+    fun readNextChar(prompt: String?): Char {
+<span class="nc" id="L77">        print(prompt)</span>
+<span class="nc" id="L78">        return Scanner(System.`in`).next()[0]</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

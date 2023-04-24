@@ -1,0 +1,25 @@
+<object-stream>
+  <list>
+    <models.Note>
+      <noteTitle>Test App</noteTitle>
+      <notePriority>4</notePriority>
+      <noteCategory>Work</noteCategory>
+      <isNoteArchived>false</isNoteArchived>
+      <noteContents>I am testing an app</noteContents>
+    </models.Note>
+    <models.Note>
+      <noteTitle>Swim - Pool</noteTitle>
+      <notePriority>3</notePriority>
+      <noteCategory>Hobby</noteCategory>
+      <isNoteArchived>true</isNoteArchived>
+      <noteContents>There is a swimming pool nearby</noteContents>
+    </models.Note>
+    <models.Note>
+      <noteTitle>Summer Holiday to France</noteTitle>
+      <notePriority>1</notePriority>
+      <noteCategory>Holiday</noteCategory>
+      <isNoteArchived>false</isNoteArchived>
+      <noteContents>The holiday will be fun</noteContents>
+    </models.Note>
+  </list>
+</object-stream>

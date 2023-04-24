@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Main.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">notes-app</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Main.kt</span></div><h1>Main.kt</h1><pre class="source lang-java linenums">import controllers.NoteAPI
+import models.Note
+import mu.KotlinLogging
+import persistence.JSONSerializer
+import utils.ScannerInput
+import utils.ScannerInput.readNextInt
+import utils.ScannerInput.readNextLine
+import java.io.File
+import java.lang.System.exit
+
+<span class="nc" id="L11">private val logger = KotlinLogging.logger {}</span>
+// private val noteAPI = NoteAPI(XMLSerializer(File(&quot;notes.xml&quot;)))
+<span class="nc" id="L13">private val noteAPI = NoteAPI(JSONSerializer(File(&quot;notes.json&quot;)))</span>
+
+fun main(args: Array&lt;String&gt;) {
+<span class="nc" id="L16">    runMenu()</span>
+<span class="nc" id="L17">}</span>
+
+fun mainMenu(): Int {
+<span class="nc" id="L20">    return ScannerInput.readNextInt(</span>
+        &quot;&quot;&quot; 
+         &gt; ----------------------------------
+         &gt; |        NOTES APP PROJECT       |
+         &gt; ----------------------------------
+         &gt; | NOTE MENU                      |
+         &gt; |   1) Add a note                |
+         &gt; |   2) List notes                |
+         &gt; |   3) Modify notes              |
+         &gt; |   4) Search notes              |
+         &gt; |   5) Count notes               |
+         &gt; |                                |
+         &gt; |   6) Save notes                |
+         &gt; |   7) Load notes                |
+         &gt; ----------------------------------
+         &gt; |   0) Exit                      |
+         &gt; ----------------------------------
+<span class="nc" id="L37">         &gt; ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+    )
+}
+
+fun runMenu() {
+    do {
+<span class="nc" id="L43">        val option = mainMenu()</span>
+<span class="nc bnc" id="L44" title="All 9 branches missed.">        when (option) {</span>
+<span class="nc" id="L45">            1 -&gt; addNote()</span>
+<span class="nc" id="L46">            2 -&gt; listNotes()</span>
+<span class="nc" id="L47">            3 -&gt; modify()</span>
+<span class="nc" id="L48">            4 -&gt; search()</span>
+<span class="nc" id="L49">            5 -&gt; count()</span>
+<span class="nc" id="L50">            6 -&gt; save()</span>
+<span class="nc" id="L51">            7 -&gt; load()</span>
+<span class="nc" id="L52">            0 -&gt; exitApp()</span>
+<span class="nc" id="L53">            else -&gt; println(&quot;Invalid option entered: $option&quot;)</span>
+        }
+<span class="nc" id="L55">    } while (true)</span>
+}
+
+fun addNote() {
+    // logger.info { &quot;addNote() function invoked&quot; }
+<span class="nc" id="L60">    val noteTitle = readNextLine(&quot;Enter a title for the note: &quot;)</span>
+<span class="nc" id="L61">    val notePriority = readNextInt(&quot;Enter a priority (1-low, 2, 3, 4, 5-high): &quot;)</span>
+<span class="nc" id="L62">    val noteCategory = readNextLine(&quot;Enter a category for the note: &quot;)</span>
+<span class="nc" id="L63">    val noteContents = readNextLine(&quot;Enter contents of the note: &quot;)</span>
+<span class="nc" id="L64">    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false, noteContents))</span>
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">    if (isAdded) {</span>
+<span class="nc" id="L67">        println(&quot;Added Successfully&quot;)</span>
+    } else {
+<span class="nc" id="L69">        println(&quot;Add Failed&quot;)</span>
+    }
+<span class="nc" id="L71">}</span>
+
+fun listNotes() {
+<span class="nc bnc" id="L74" title="All 2 branches missed.">    if (noteAPI.numberOfNotes() &gt; 0) {</span>
+<span class="nc" id="L75">        val option = readNextInt(</span>
+            &quot;&quot;&quot;
+                  &gt; --------------------------------
+                  &gt; |   1) View All notes          |
+                  &gt; |   2) View Active notes       |
+                  &gt; |   3) View Archived notes     |
+                  &gt; --------------------------------
+<span class="nc" id="L82">         &gt; ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+        )
+
+<span class="nc bnc" id="L85" title="All 4 branches missed.">        when (option) {</span>
+<span class="nc" id="L86">            1 -&gt; listAllNotes()</span>
+<span class="nc" id="L87">            2 -&gt; listActiveNotes()</span>
+<span class="nc" id="L88">            3 -&gt; listArchivedNotes()</span>
+<span class="nc" id="L89">            else -&gt; println(&quot;Invalid option entered: &quot; + option)</span>
+        }
+    } else {
+<span class="nc" id="L92">        println(&quot;Option Invalid - No notes stored&quot;)</span>
+    }
+<span class="nc" id="L94">}</span>
+
+fun search() {
+<span class="nc bnc" id="L97" title="All 2 branches missed.">    if (noteAPI.numberOfNotes() &gt; 0) {</span>
+<span class="nc" id="L98">        val option = readNextInt(</span>
+            &quot;&quot;&quot;
+                  &gt; --------------------------------
+                  &gt; |   1) Search by Title         |
+                  &gt; |   2) Search by Category      |
+                  &gt; |   3) Search by Priority      |
+                  &gt; --------------------------------
+<span class="nc" id="L105">         &gt; ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+        )
+
+<span class="nc bnc" id="L108" title="All 4 branches missed.">        when (option) {</span>
+<span class="nc" id="L109">            1 -&gt; searchByTitle()</span>
+<span class="nc" id="L110">            2 -&gt; searchByCategory()</span>
+<span class="nc" id="L111">            3 -&gt; listNotesByPriority()</span>
+<span class="nc" id="L112">            else -&gt; println(&quot;Invalid option entered: &quot; + option)</span>
+        }
+    } else {
+<span class="nc" id="L115">        println(&quot;Option Invalid - No notes stored&quot;)</span>
+    }
+<span class="nc" id="L117">}</span>
+
+fun modify() {
+<span class="nc bnc" id="L120" title="All 2 branches missed.">    if (noteAPI.numberOfNotes() &gt; 0) {</span>
+<span class="nc" id="L121">        val option = readNextInt(</span>
+            &quot;&quot;&quot;
+                  &gt; --------------------------------
+                  &gt; |   1) Update a note           |
+                  &gt; |   2) Archive/Activate a note |
+                  &gt; |   3) Delete a note           |
+                  &gt; --------------------------------
+<span class="nc" id="L128">         &gt; ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+        )
+
+<span class="nc bnc" id="L131" title="All 4 branches missed.">        when (option) {</span>
+<span class="nc" id="L132">            1 -&gt; updateNote()</span>
+<span class="nc" id="L133">            2 -&gt; archiveNote()</span>
+<span class="nc" id="L134">            3 -&gt; deleteNote()</span>
+<span class="nc" id="L135">            else -&gt; println(&quot;Invalid option entered: &quot; + option)</span>
+        }
+    } else {
+<span class="nc" id="L138">        println(&quot;Option Invalid - No notes stored&quot;)</span>
+    }
+<span class="nc" id="L140">}</span>
+
+fun count() {
+<span class="nc bnc" id="L143" title="All 2 branches missed.">    if (noteAPI.numberOfNotes() &gt; 0) {</span>
+<span class="nc" id="L144">        val option = readNextInt(</span>
+            &quot;&quot;&quot;
+                  &gt; --------------------------------
+                  &gt; |   1) Count by priority       |
+                  &gt; |   2) Count by category       |
+                  &gt; |   3) Count by active status  |
+                  &gt; --------------------------------
+<span class="nc" id="L151">         &gt; ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+        )
+
+<span class="nc bnc" id="L154" title="All 4 branches missed.">        when (option) {</span>
+<span class="nc" id="L155">            1 -&gt; countNotesByPriority()</span>
+<span class="nc" id="L156">            2 -&gt; countNotesByCategory()</span>
+<span class="nc" id="L157">            3 -&gt; countActiveArchived()</span>
+<span class="nc" id="L158">            else -&gt; println(&quot;Invalid option entered: &quot; + option)</span>
+        }
+    } else {
+<span class="nc" id="L161">        println(&quot;Option Invalid - No notes stored&quot;)</span>
+    }
+<span class="nc" id="L163">}</span>
+
+fun countActiveArchived() {
+<span class="nc bnc" id="L166" title="All 2 branches missed.">    if (noteAPI.numberOfNotes() &gt; 0) {</span>
+<span class="nc" id="L167">        val option = readNextInt(</span>
+            &quot;&quot;&quot;
+                  &gt; --------------------------------
+                  &gt; |   1) Count Active            |
+                  &gt; |   2) Count Archived          |
+                  &gt; --------------------------------
+<span class="nc" id="L173">         &gt; ==&gt;&gt; &quot;&quot;&quot;.trimMargin(&quot;&gt;&quot;)</span>
+        )
+
+<span class="nc bnc" id="L176" title="All 3 branches missed.">        when (option) {</span>
+<span class="nc" id="L177">            1 -&gt; countActiveNotes()</span>
+<span class="nc" id="L178">            2 -&gt; countArchivedNotes()</span>
+<span class="nc" id="L179">            else -&gt; println(&quot;Invalid option entered: &quot; + option)</span>
+        }
+    } else {
+<span class="nc" id="L182">        println(&quot;Option Invalid - No notes stored&quot;)</span>
+    }
+<span class="nc" id="L184">}</span>
+
+fun updateNote() {
+    // logger.info { &quot;updateNotes() function invoked&quot; }
+<span class="nc" id="L188">    listNotes()</span>
+<span class="nc bnc" id="L189" title="All 2 branches missed.">    if (noteAPI.numberOfNotes() &gt; 0) {</span>
+        // only ask the user to choose the note if notes exist
+<span class="nc" id="L191">        val indexToUpdate = readNextInt(&quot;Enter the index of the note to update: &quot;)</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">        if (noteAPI.isValidIndex(indexToUpdate)) {</span>
+<span class="nc" id="L193">            val noteTitle = readNextLine(&quot;Enter a title for the note: &quot;)</span>
+<span class="nc" id="L194">            val notePriority = readNextInt(&quot;Enter a priority (1-low, 2, 3, 4, 5-high): &quot;)</span>
+<span class="nc" id="L195">            val noteCategory = readNextLine(&quot;Enter a category for the note: &quot;)</span>
+<span class="nc" id="L196">            val noteContents = readNextLine(&quot;Enter contents of the note: &quot;)</span>
+            // pass the index of the note and the new note details to NoteAPI for updating and check for success.
+<span class="nc bnc" id="L198" title="All 2 branches missed.">            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false, noteContents))) {</span>
+<span class="nc" id="L199">                println(&quot;Update Successful&quot;)</span>
+            } else {
+<span class="nc" id="L201">                println(&quot;Update Failed&quot;)</span>
+            }
+        } else {
+<span class="nc" id="L204">            println(&quot;There are no notes for this index number&quot;)</span>
+        }
+    }
+<span class="nc" id="L207">}</span>
+
+fun deleteNote() {
+    // logger.info { &quot;deleteNotes() function invoked&quot; }
+<span class="nc" id="L211">    listNotes()</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">    if (noteAPI.numberOfNotes() &gt; 0) {</span>
+        // only ask the user to choose the note to delete if notes exist
+<span class="nc" id="L214">        val indexToDelete = readNextInt(&quot;Enter the index of the note to delete: &quot;)</span>
+        // pass the index of the note to NoteAPI for deleting and check for success.
+<span class="nc" id="L216">        val noteToDelete = noteAPI.deleteNote(indexToDelete)</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">        if (noteToDelete != null) {</span>
+<span class="nc" id="L218">            println(&quot;Delete Successful! Deleted note: ${noteToDelete.noteTitle}&quot;)</span>
+        } else {
+<span class="nc" id="L220">            println(&quot;Delete NOT Successful&quot;)</span>
+        }
+    }
+<span class="nc" id="L223">}</span>
+
+fun exitApp() {
+    // logger.info { &quot;exitApp() function invoked&quot; }
+<span class="nc" id="L227">    exit(0)</span>
+<span class="nc" id="L228">}</span>
+
+fun listActiveNotes() {
+<span class="nc" id="L231">    println(noteAPI.listActiveNotes())</span>
+<span class="nc" id="L232">}</span>
+
+fun listArchivedNotes() {
+<span class="nc" id="L235">    println(noteAPI.listArchivedNotes())</span>
+<span class="nc" id="L236">}</span>
+
+fun listAllNotes() {
+<span class="nc" id="L239">    println(noteAPI.listAllNotes())</span>
+<span class="nc" id="L240">}</span>
+
+fun listNotesByPriority() {
+<span class="nc" id="L243">    val priority = readNextInt(&quot;Enter the priority(1-5) you wish to search: &quot;)</span>
+<span class="nc" id="L244">    println(noteAPI.listNotesBySelectedPriority(priority))</span>
+<span class="nc" id="L245">}</span>
+
+fun countNotesByPriority() {
+<span class="nc" id="L248">    val priority = readNextInt(&quot;Enter the priority(1-5) you wish to count: &quot;)</span>
+<span class="nc" id="L249">    println(noteAPI.numberOfNotesByPriority(priority))</span>
+<span class="nc" id="L250">}</span>
+
+fun save() {
+<span class="nc" id="L253">    try {</span>
+<span class="nc" id="L254">        noteAPI.store()</span>
+<span class="nc" id="L255">    } catch (e: Exception) {</span>
+<span class="nc" id="L256">        System.err.println(&quot;Error writing to file: $e&quot;)</span>
+    }
+<span class="nc" id="L258">}</span>
+
+fun load() {
+<span class="nc" id="L261">    try {</span>
+<span class="nc" id="L262">        noteAPI.load()</span>
+<span class="nc" id="L263">    } catch (e: Exception) {</span>
+<span class="nc" id="L264">        System.err.println(&quot;Error reading from file: $e&quot;)</span>
+    }
+<span class="nc" id="L266">}</span>
+
+fun archiveNote() {
+<span class="nc" id="L269">    listNotes()</span>
+<span class="nc bnc" id="L270" title="All 2 branches missed.">    if (noteAPI.numberOfNotes() &gt; 0) {</span>
+<span class="nc" id="L271">        val indexToArchive = readNextInt(&quot;Enter the index of the note to adjust: &quot;)</span>
+<span class="nc bnc" id="L272" title="All 2 branches missed.">        if (noteAPI.archiveNote(indexToArchive)) {</span>
+<span class="nc" id="L273">            println(&quot;Adjustment Successful!&quot;)</span>
+        } else {
+<span class="nc" id="L275">            println(&quot;Adjustment NOT Successful&quot;)</span>
+        }
+    }
+<span class="nc" id="L278">}</span>
+
+fun searchByTitle() {
+<span class="nc" id="L281">    val input = readNextLine(&quot;Enter title of the note: &quot;)</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">    if (noteAPI.searchByTitle(input) == &quot;&quot;) {</span>
+<span class="nc" id="L283">        println(&quot;No notes of title found&quot;)</span>
+    } else {
+<span class="nc" id="L285">        println(noteAPI.searchByTitle(input))</span>
+    }
+<span class="nc" id="L287">}</span>
+
+fun searchByCategory() {
+<span class="nc" id="L290">    val input = readNextLine(&quot;Enter category of the note: &quot;)</span>
+<span class="nc bnc" id="L291" title="All 2 branches missed.">    if (noteAPI.searchByCategory(input) == &quot;&quot;) {</span>
+<span class="nc" id="L292">        println(&quot;No notes of category found&quot;)</span>
+    } else {
+<span class="nc" id="L294">        println(noteAPI.searchByCategory(input))</span>
+    }
+<span class="nc" id="L296">}</span>
+
+fun countNotesByCategory() {
+<span class="nc" id="L299">    val category = readNextLine(&quot;Enter the category you wish to count: &quot;)</span>
+<span class="nc" id="L300">    println(noteAPI.numberOfCategory(category))</span>
+<span class="nc" id="L301">}</span>
+
+fun countActiveNotes() {
+<span class="nc" id="L304">    println(noteAPI.numberOfActiveNotes())</span>
+<span class="nc" id="L305">}</span>
+
+fun countArchivedNotes() {
+<span class="nc" id="L308">    println(noteAPI.numberOfArchivedNotes())</span>
+<span class="nc" id="L309">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

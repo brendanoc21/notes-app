@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controllers.NoteAPITest$UpdateNotes" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-04-24T15:37:12" hostname="LAPTOP-AKQ5IE6U" time="0.005">
+  <properties/>
+  <testcase name="updating a note that exists returns true and updates()" classname="controllers.NoteAPITest$UpdateNotes" time="0.002"/>
+  <testcase name="updating a note that does not exist returns false()" classname="controllers.NoteAPITest$UpdateNotes" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

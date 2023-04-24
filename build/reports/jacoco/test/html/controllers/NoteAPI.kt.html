@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NoteAPI.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">notes-app</a> &gt; <a href="index.source.html" class="el_package">controllers</a> &gt; <span class="el_source">NoteAPI.kt</span></div><h1>NoteAPI.kt</h1><pre class="source lang-java linenums">package controllers
+
+import models.Note
+import persistence.Serializer
+import kotlin.collections.ArrayList
+
+<span class="fc" id="L7">class NoteAPI(serializerType: Serializer) {</span>
+
+<span class="fc" id="L9">    private var serializer: Serializer = serializerType</span>
+
+<span class="fc" id="L11">    private var notes = ArrayList&lt;Note&gt;()</span>
+
+    fun add(note: Note): Boolean {
+<span class="fc" id="L14">        return notes.add(note)</span>
+    }
+
+    fun listAllNotes(): String =
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        if (notes.isEmpty()) &quot;No notes stored&quot;</span>
+<span class="fc" id="L19">        else formatListString(notes)</span>
+
+    fun numberOfNotes(): Int {
+<span class="fc" id="L22">        return notes.size</span>
+    }
+
+    fun findNote(index: Int): Note? {
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        return if (isValidListIndex(index, notes)) {</span>
+<span class="fc" id="L27">            notes[index]</span>
+<span class="fc" id="L28">        } else null</span>
+    }
+
+    // utility method to determine if an index is valid in a list.
+    fun isValidListIndex(index: Int, list: List&lt;Any&gt;): Boolean {
+<span class="fc bfc" id="L33" title="All 4 branches covered.">        return (index &gt;= 0 &amp;&amp; index &lt; list.size)</span>
+    }
+
+    fun listActiveNotes(): String =
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (numberOfActiveNotes() == 0) &quot;No active notes stored&quot;</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">        else formatListString(notes.filter { note -&gt; !note.isNoteArchived })</span>
+
+    fun listArchivedNotes(): String =
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if (numberOfArchivedNotes() == 0) &quot;No archived notes stored&quot;</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        else formatListString(notes.filter { note -&gt; note.isNoteArchived })</span>
+
+<span class="pc bpc" id="L44" title="1 of 6 branches missed.">    fun numberOfActiveNotes(): Int = notes.count { note: Note -&gt; !note.isNoteArchived }</span>
+
+<span class="pc bpc" id="L46" title="1 of 4 branches missed.">    fun numberOfArchivedNotes(): Int = notes.count { note: Note -&gt; note.isNoteArchived }</span>
+
+    fun listNotesBySelectedPriority(priority: Int): String =
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (notes.isEmpty()) &quot;No notes stored&quot;</span>
+        else {
+<span class="fc bfc" id="L51" title="All 4 branches covered.">            val listOfNotes = formatListString(notes.filter { note -&gt; note.notePriority == priority })</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">            if (listOfNotes.equals(&quot;&quot;)) &quot;No notes with priority: $priority&quot;</span>
+<span class="fc" id="L53">            else &quot;${numberOfNotesByPriority(priority)} notes with priority $priority: \n $listOfNotes&quot;</span>
+<span class="fc" id="L54">        }</span>
+
+<span class="pc bpc" id="L56" title="1 of 6 branches missed.">    fun numberOfNotesByPriority(priority: Int): Int = notes.count { note: Note -&gt; note.notePriority == priority }</span>
+
+    fun deleteNote(indexToDelete: Int): Note? {
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        return if (isValidListIndex(indexToDelete, notes)) {</span>
+<span class="fc" id="L60">            notes.removeAt(indexToDelete)</span>
+<span class="fc" id="L61">        } else null</span>
+    }
+
+    fun updateNote(indexToUpdate: Int, note: Note?): Boolean {
+        // find the note object by the index number
+<span class="fc" id="L66">        val foundNote = findNote(indexToUpdate)</span>
+
+        // if the note exists, use the note details passed as parameters to update the found note in the ArrayList.
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">        if ((foundNote != null) &amp;&amp; (note != null)) {</span>
+<span class="fc" id="L70">            foundNote.noteTitle = note.noteTitle</span>
+<span class="fc" id="L71">            foundNote.notePriority = note.notePriority</span>
+<span class="fc" id="L72">            foundNote.noteCategory = note.noteCategory</span>
+<span class="fc" id="L73">            return true</span>
+        }
+
+        // if the note was not found, return false, indicating that the update was not successful
+<span class="fc" id="L77">        return false</span>
+    }
+
+    fun isValidIndex(index: Int): Boolean {
+<span class="fc" id="L81">        return isValidListIndex(index, notes)</span>
+    }
+
+    @Throws(Exception::class)
+    fun load() {
+<span class="fc" id="L86">        notes = serializer.read() as ArrayList&lt;Note&gt;</span>
+<span class="fc" id="L87">    }</span>
+
+    @Throws(Exception::class)
+    fun store() {
+<span class="fc" id="L91">        serializer.write(notes)</span>
+<span class="fc" id="L92">    }</span>
+
+    fun archiveNote(indexToArchive: Int): Boolean {
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (isValidIndex(indexToArchive)) {</span>
+<span class="fc" id="L96">            val noteToArchive = notes[indexToArchive]</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">            if (!noteToArchive.isNoteArchived) {</span>
+<span class="fc" id="L98">                noteToArchive.isNoteArchived = true</span>
+<span class="fc" id="L99">                return true</span>
+<span class="pc bpc" id="L100" title="1 of 2 branches missed.">            } else if (noteToArchive.isNoteArchived) {</span>
+<span class="fc" id="L101">                noteToArchive.isNoteArchived = false</span>
+<span class="fc" id="L102">                return true</span>
+            }
+        }
+<span class="fc" id="L105">        return false</span>
+    }
+
+    fun searchByTitle(input: String): String =
+<span class="fc" id="L109">        formatListString(</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">            notes.filter { note -&gt; note.noteTitle.contains(input, ignoreCase = true) }</span>
+<span class="fc" id="L111">        )</span>
+
+    private fun formatListString(notesToFormat: List&lt;Note&gt;): String =
+<span class="fc" id="L114">        notesToFormat</span>
+<span class="fc" id="L115">            .joinToString(separator = &quot;\n&quot;) { note -&gt;</span>
+<span class="fc" id="L116">                notes.indexOf(note).toString() + &quot;: &quot; + note.toString()</span>
+<span class="fc" id="L117">            }</span>
+
+    fun searchByCategory(input: String): String =
+<span class="fc" id="L120">        formatListString(</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">            notes.filter { note -&gt; note.noteCategory.contains(input, ignoreCase = true) }</span>
+<span class="fc" id="L122">        )</span>
+
+<span class="pc bpc" id="L124" title="1 of 4 branches missed.">    fun numberOfCategory(category: String): Int = notes.count { note: Note -&gt; note.noteCategory.contains(category, ignoreCase = true) }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

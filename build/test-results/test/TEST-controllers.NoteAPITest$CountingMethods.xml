@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controllers.NoteAPITest$CountingMethods" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-24T15:37:12" hostname="LAPTOP-AKQ5IE6U" time="0.013">
+  <properties/>
+  <testcase name="numberOfNotesByCategoryCalculatedCorrectly()" classname="controllers.NoteAPITest$CountingMethods" time="0.001"/>
+  <testcase name="numberOfNotesCalculatedCorrectly()" classname="controllers.NoteAPITest$CountingMethods" time="0.002"/>
+  <testcase name="numberOfActiveNotesCalculatedCorrectly()" classname="controllers.NoteAPITest$CountingMethods" time="0.001"/>
+  <testcase name="numberOfNotesByPriorityCalculatedCorrectly()" classname="controllers.NoteAPITest$CountingMethods" time="0.001"/>
+  <testcase name="numberOfArchivedNotesCalculatedCorrectly()" classname="controllers.NoteAPITest$CountingMethods" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

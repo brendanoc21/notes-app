@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controllers.NoteAPITest$DeleteNotes" tests="9" skipped="0" failures="0" errors="0" timestamp="2023-04-24T15:37:12" hostname="LAPTOP-AKQ5IE6U" time="0.025">
+  <properties/>
+  <testcase name="deleting a note that exists delete and returns deleted object()" classname="controllers.NoteAPITest$DeleteNotes" time="0.001"/>
+  <testcase name="listActiveNotes returns no active notes stored when ArrayList is empty()" classname="controllers.NoteAPITest$DeleteNotes" time="0.002"/>
+  <testcase name="listNotesBySelectedPriority returns No Notes when ArrayList is empty()" classname="controllers.NoteAPITest$DeleteNotes" time="0.001"/>
+  <testcase name="deleting a Note that does not exist, returns null()" classname="controllers.NoteAPITest$DeleteNotes" time="0.002"/>
+  <testcase name="listActiveNotes returns active notes when ArrayList has active notes stored()" classname="controllers.NoteAPITest$DeleteNotes" time="0.002"/>
+  <testcase name="listArchivedNotes returns no archived notes when ArrayList is empty()" classname="controllers.NoteAPITest$DeleteNotes" time="0.002"/>
+  <testcase name="listNotesBySelectedPriority returns all notes that match that priority when notes of that priority exist()" classname="controllers.NoteAPITest$DeleteNotes" time="0.002"/>
+  <testcase name="listNotesBySelectedPriority returns no notes when no notes of that priority exist()" classname="controllers.NoteAPITest$DeleteNotes" time="0.002"/>
+  <testcase name="listArchivedNotes returns archived notes when ArrayList has archived notes stored()" classname="controllers.NoteAPITest$DeleteNotes" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

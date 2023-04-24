@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="controllers.NoteAPITest$SearchingMethods" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-04-24T15:37:12" hostname="LAPTOP-AKQ5IE6U" time="0.015">
+  <properties/>
+  <testcase name="searchByCategory returns No Notes Stored message when ArrayList is empty()" classname="controllers.NoteAPITest$SearchingMethods" time="0.001"/>
+  <testcase name="searchByTitle returns No Notes Stored message when ArrayList is empty()" classname="controllers.NoteAPITest$SearchingMethods" time="0.002"/>
+  <testcase name="searchByCategory acquires correct category()" classname="controllers.NoteAPITest$SearchingMethods" time="0.006"/>
+  <testcase name="searchByTitle acquires correct title()" classname="controllers.NoteAPITest$SearchingMethods" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
