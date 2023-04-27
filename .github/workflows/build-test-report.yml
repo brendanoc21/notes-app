@@ -29,3 +29,29 @@ jobs:
         with:
           name: Jar with Dependencies
           path: build/libs
+
+  test: 
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it   
+      - uses: actions/checkout@v2
+
+      # Runs the Gradle test task
+      - name: Test with Gradle
+        run: ./gradlew test --tests "*"
+
+      # Builds a zip file with JUnit test report in it    
+      - name: Archive test report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test report
+          path: build/reports/tests/test
+
+      # Builds a zip file with JUnit code coveage report in it    
+      - name: Archive coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Code Coverage report
+          path: build/reports/jacoco/test/html
